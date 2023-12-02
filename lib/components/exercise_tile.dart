@@ -17,7 +17,10 @@ class ExerciseTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.fromLTRB(5, 10, 5, 0),
       decoration: BoxDecoration(
+        color: Colors.blueGrey[700],
         borderRadius: BorderRadius.circular(12),
       ),
       child: ListTile(

@@ -2,7 +2,7 @@ part of 'workout_list_bloc.dart';
 
 @immutable
 sealed class WorkoutListState {
-  final List workoutList;
+  final List<Workout> workoutList;
 
   const WorkoutListState({
     required this.workoutList,

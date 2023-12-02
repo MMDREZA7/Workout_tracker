@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-
 import '../../models/exercise_model.dart';
 import '../../models/workout_model.dart';
 
@@ -17,10 +16,10 @@ List<Workout> workoutList = [
         weight: '10',
       ),
       Exercise(
-        exerciseName: 'Vazneh',
+        exerciseName: '2',
         reps: '10',
         sets: '3',
-        weight: '10',
+        weight: '0',
       ),
     ],
     workoutName: 'Upper Body',
@@ -34,10 +33,10 @@ List<Workout> workoutList = [
         weight: '12',
       ),
       Exercise(
-        exerciseName: 'Squat',
-        reps: '15',
+        exerciseName: 's',
+        reps: '5',
         sets: '4',
-        weight: '12',
+        weight: '6',
       ),
     ],
     workoutName: 'Lower Body',
@@ -58,10 +57,7 @@ List<Workout> workoutList = [
 class WorkoutListBloc extends Bloc<WorkoutListEvent, WorkoutListState> {
   WorkoutListBloc() : super(WorkoutListInitial(workoutList: workoutList)) {
     // add workout proccos
-    on<AddWorkoutToList>((
-      event,
-      emit,
-    ) {
+    on<AddWorkoutToList>((event, emit) {
       emit(WorkoutListLoading(workoutList: workoutList));
 
       workoutList.add(event.workout);

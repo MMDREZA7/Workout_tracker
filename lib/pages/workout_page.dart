@@ -6,10 +6,12 @@ import 'package:my_card/models/exercise_model.dart';
 
 class WorkoutPage extends StatefulWidget {
   final String workoutNameAppBar;
+  final int workoutIndex;
 
   const WorkoutPage({
     super.key,
     required this.workoutNameAppBar,
+    required this.workoutIndex,
   });
 
   @override
@@ -177,14 +179,16 @@ class _WorkoutPageState extends State<WorkoutPage> {
           AddExerciesToList(
             workoutName: widget.workoutNameAppBar,
             exercise: Exercise(
-              exerciseName: newExerciseRepsController.text,
-              reps: newExerciseNameController.text,
+              exerciseName: newExerciseNameController.text,
+              reps: newExerciseRepsController.text,
               sets: newExerciseSetsController.text,
               weight: newExerciseWeightController.text,
             ),
           ),
         );
+    setState(() {});
     Navigator.pop(context);
+
     newExerciseRepsController.clear();
     newExerciseNameController.clear();
     newExerciseSetsController.clear();
@@ -215,8 +219,8 @@ class _WorkoutPageState extends State<WorkoutPage> {
         builder: (context, state) {
           if (state is WorkoutListError) {
             return Container(
-              width: double.infinity,
-              height: double.infinity,
+              width: 300,
+              height: 300,
               color: Colors.red[900],
             );
           }
@@ -225,14 +229,48 @@ class _WorkoutPageState extends State<WorkoutPage> {
               color: Colors.grey[900],
             );
           }
-          return ListView.builder(
-            itemCount: state.workoutList.length,
-            itemBuilder: (context, index) => ExerciseTile(
-              exerciseName: state.workoutList[index].exerciseName,
-              reps: state.workoutList[index].reps,
-              sets: state.workoutList[index].sets,
-              weight: state.workoutList[index].weight,
-            ),
+          if (state is WorkoutListInitial) {
+            return Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount:
+                        state.workoutList[widget.workoutIndex].exercise.length,
+                    itemBuilder: (context, index) => ExerciseTile(
+                      exerciseName: state.workoutList[widget.workoutIndex]
+                          .exercise[index].exerciseName,
+                      reps: state.workoutList[widget.workoutIndex]
+                          .exercise[index].reps,
+                      sets: state.workoutList[widget.workoutIndex]
+                          .exercise[index].sets,
+                      weight: state.workoutList[widget.workoutIndex]
+                          .exercise[index].weight,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }
+
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount:
+                      state.workoutList[widget.workoutIndex].exercise.length,
+                  itemBuilder: (context, index) => ExerciseTile(
+                    exerciseName: state.workoutList[widget.workoutIndex]
+                        .exercise[index].exerciseName,
+                    reps: state
+                        .workoutList[widget.workoutIndex].exercise[index].reps,
+                    sets: state
+                        .workoutList[widget.workoutIndex].exercise[index].sets,
+                    weight: state.workoutList[widget.workoutIndex]
+                        .exercise[index].weight,
+                  ),
+                ),
+              ),
+            ],
           );
         },
       ),

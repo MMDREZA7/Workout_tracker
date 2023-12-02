@@ -140,6 +140,7 @@ class _HomePageState extends State<HomePage> {
                     builder: (context) => BlocProvider(
                       create: (context) => WorkoutListBloc(),
                       child: WorkoutPage(
+                        workoutIndex: index,
                         workoutNameAppBar: state.workoutList[index].workoutName,
                       ),
                     ),
